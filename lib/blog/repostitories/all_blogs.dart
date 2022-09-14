@@ -28,6 +28,12 @@ class AllBlogsRepo implements BlogRepository {
     return Future.value(allBlogs.where((element) => element.isFavorite).toList());
   }
 
+  @override
+  Future<Blog?> getSingleArticle(String id) {
+    final blogs = allBlogs.where((element) => element.isFavorite).toList();
+    return Future.value(blogs.isEmpty ? null : blogs.first);
+  }
+
   final allBlogs = [
     Blog(
       id: getRandom(16),

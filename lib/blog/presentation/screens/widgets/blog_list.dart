@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:go_router_learn/blog/controllers/blog_controller.dart';
 import 'package:go_router_learn/blog/models/blogs.dart';
-import 'package:go_router_learn/blog/presentation/screens/single_blog_argument.dart';
+import 'package:go_router_learn/config/routes/routes.dart';
 
 class BlogLists extends StatelessWidget {
   final BlogController blogController;
@@ -21,8 +22,9 @@ class BlogLists extends StatelessWidget {
           }
           final allBlogs = snapshot.data!;
 
-          return ListView.builder(
+          return ListView.separated(
             itemCount: allBlogs.length,
+            separatorBuilder: (_, __) => const Divider(),
             itemBuilder: ((context, index) {
               return ListTile(
                 title: Text(allBlogs[index].title),
@@ -38,11 +40,8 @@ class BlogLists extends StatelessWidget {
                   icon: Icon(allBlogs[index].isFavorite ? Icons.favorite : Icons.favorite_border_outlined),
                 ),
                 onTap: () {
-                  // TODO: route
-
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                    return SingleArticle(blog: allBlogs[index]);
-                  }));
+                  GoRouter.of(context).go(AppRouter.singleArticle, extra: allBlogs[index]);
+                  GoRouter.of(context).go(AppRouter.singleArticleWithParams(allBlogs[index].id));
                 },
               );
             }),

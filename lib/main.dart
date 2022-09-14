@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:go_router_learn/blog/presentation/screens/list_all_blogs.dart';
+import 'package:go_router/go_router.dart';
+import 'package:go_router_learn/config/routes/routes.dart';
 
 void main() {
+  GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const AllBlogs(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.blue, tabBarTheme: const TabBarTheme(labelColor: Colors.black)),
+      routeInformationProvider: AppRouter.router.routeInformationProvider,
+      routeInformationParser: AppRouter.router.routeInformationParser,
+      routerDelegate: AppRouter.router.routerDelegate,
     );
   }
 }
