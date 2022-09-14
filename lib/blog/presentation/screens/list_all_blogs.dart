@@ -10,7 +10,7 @@ class AllBlogs extends StatefulWidget {
   State<AllBlogs> createState() => _AllBlogsState();
 }
 
-class _AllBlogsState extends State<AllBlogs> {
+class _AllBlogsState extends State<AllBlogs> with AutomaticKeepAliveClientMixin {
   final BlogController _blogController = AllBlogController()..getAllLists();
 
   @override
@@ -21,6 +21,10 @@ class _AllBlogsState extends State<AllBlogs> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(body: BlogLists(blogController: _blogController));
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
